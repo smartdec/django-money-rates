@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 class RateSource(models.Model):
     name = models.CharField(max_length=100, unique=True)
     last_update = models.DateTimeField(auto_now=True)
-    base_currency = models.CharField(max_length=3)
+    base_currency = models.CharField(max_length=10)
 
     def __str__(self):
         return _("%s rates in %s update %s") % (
@@ -19,7 +19,7 @@ class RateSource(models.Model):
 @python_2_unicode_compatible
 class Rate(models.Model):
     source = models.ForeignKey(RateSource, on_delete=models.CASCADE)
-    currency = models.CharField(max_length=3)
+    currency = models.CharField(max_length=10)
     value = models.DecimalField(max_digits=20, decimal_places=6)
 
     class Meta:
